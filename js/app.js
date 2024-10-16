@@ -25,6 +25,19 @@ function agregarTweet(e){
         return; // Evita que se ejecuten más líneas de código
     }
 
+    const tweetObj = {
+        id: Date.now(),
+        tweet
+    }
+
+    // Añadir al arreglo de tweets
+    tweets = [...tweets, tweetObj];
+
+    // Se crea el HTML
+    crearHTML();
+
+    // Reiniciar el formulario
+    formulario.reset();
 
 }
 
@@ -40,4 +53,30 @@ function mostarError(error){
     setTimeout(() => {
         mensajeError.remove();
     }, 3000);
+}
+
+// Muestra una lista de los tweets
+function crearHTML(){
+
+    limpiarHTML();
+
+    if(tweets.length > 0){
+        tweets.forEach(tweet => {
+            
+            // Crear el HTML
+            const li = document.createElement('LI');
+
+            // Agregar el texto
+            li.innerText = tweet.tweet;
+
+            // Insertar en el HTML
+            listaTweets.appendChild(li);
+        })
+    }
+}
+
+function limpiarHTML(){
+    while(listaTweets.firstChild){
+        listaTweets.removeChild(listaTweets.firstChild);
+    }
 }
